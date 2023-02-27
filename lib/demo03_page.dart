@@ -6,6 +6,7 @@ class Demo03Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("Demo3")),
       body: Container(
         color: Colors.white,
         child: Stack(children: [

@@ -6,6 +6,7 @@ class Demo01Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("Demo1")),
       body: Container(
         color: Colors.red,
         child: Stack(children: [
@@ -26,9 +27,17 @@ class Demo01Page extends StatelessWidget {
           ),
           Align(
               alignment: Alignment.bottomCenter,
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(minWidth: 100),
-                child: const TextField(),
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(8.0, 0, 8.0, 0),
+                margin: const EdgeInsets.all(8.0),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                ),
+                constraints: const BoxConstraints(maxWidth: 200),
+                child: const TextField(
+                  decoration: InputDecoration(border: InputBorder.none),
+                ),
               ))
         ]),
       ),

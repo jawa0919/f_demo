@@ -18,11 +18,36 @@ class AppRoute {
   static final routes = [
     GoRoute(
       path: '/',
-      builder: (_, __) => const MyHomePage(title: "Demo List"),
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const MyHomePage(title: "Demo List"),
+        key: state.pageKey,
+        restorationId: state.pageKey.value,
+      ),
     ),
-    GoRoute(path: '/demo01', builder: (_, __) => const Demo01Page()),
-    GoRoute(path: '/demo02', builder: (_, __) => const Demo02Page()),
-    GoRoute(path: '/demo03', builder: (_, __) => const Demo03Page()),
+    GoRoute(
+      path: '/demo01',
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const Demo01Page(),
+        key: state.pageKey,
+        restorationId: state.pageKey.value,
+      ),
+    ),
+    GoRoute(
+      path: '/demo02',
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const Demo02Page(),
+        key: state.pageKey,
+        restorationId: state.pageKey.value,
+      ),
+    ),
+    GoRoute(
+      path: '/demo03',
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: const Demo03Page(),
+        key: state.pageKey,
+        restorationId: state.pageKey.value,
+      ),
+    ),
   ];
 }
 

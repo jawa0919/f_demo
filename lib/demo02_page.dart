@@ -6,6 +6,7 @@ class Demo02Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("Demo2")),
       body: Container(
         color: Colors.green,
         child: Stack(children: [
@@ -18,7 +19,7 @@ class Demo02Page extends StatelessWidget {
               ),
               SizedBox(height: 30),
               Text(
-                "Web 使用 WillPopScope组件时，会引起右滑返回上一页操作出现几秒白屏问题，请尝试解决。",
+                "Web for IOS使用 WillPopScope组件时，会引起右滑返回上一页操作出现几秒白屏问题，请尝试解决。",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 30, color: Colors.black),
               )

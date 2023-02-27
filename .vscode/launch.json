@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "f_demo",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "f_demo (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "f_demo (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "f_demo web ip",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--web-hostname",
+                "192.168.51.94",
+                "--web-port",
+                "44441"
+            ],
+        },
+    ]
+}
