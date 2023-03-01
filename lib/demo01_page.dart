@@ -1,7 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
-class Demo01Page extends StatelessWidget {
+import 'web_support.dart';
+
+class Demo01Page extends StatefulWidget {
   const Demo01Page({super.key});
+
+  @override
+  State<Demo01Page> createState() => _Demo01PageState();
+}
+
+class _Demo01PageState extends State<Demo01Page> {
+  @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      windowHistoryLength();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

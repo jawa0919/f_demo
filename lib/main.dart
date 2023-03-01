@@ -1,18 +1,50 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 
 import 'demo01_page.dart';
 import 'demo02_page.dart';
 import 'demo03_page.dart';
+import 'web_support.dart';
 
 void main() {
+  usePathUrlStrategy();
   runApp(const MyApp());
+}
+
+class AppRouteObserver extends NavigatorObserver {
+  @override
+  void didReplace({Route? newRoute, Route? oldRoute}) {
+    log("AppRouteObserver.didReplace");
+  }
+
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    log("AppRouteObserver.didPop");
+  }
+
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    log("AppRouteObserver.didPop");
+  }
+
+  @override
+  void didRemove(Route route, Route? previousRoute) {
+    log("AppRouteObserver.didPop");
+  }
 }
 
 class AppRoute {
   AppRoute._();
   static final routerConfig = GoRouter(
+    debugLogDiagnostics: true,
     routes: routes,
+    initialLocation: "/",
+    observers: [FlutterSmartDialog.observer, AppRouteObserver()],
   );
 
   static final routes = [
@@ -59,6 +91,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
+      builder: FlutterSmartDialog.init(),
       routerConfig: AppRoute.routerConfig,
     );
   }
@@ -82,17 +115,26 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      windowHistoryLength();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       body: ListView(
         children: [
-          _addDemo(context),
+          _incrementDemo(context),
           Center(
             child: ElevatedButton(
               child: const Text("Web Text Field Demo01"),
               onPressed: () {
-                GoRouter.of(context).go("/demo01");
+                SmartDialog.showToast("/demo01");
+                GoRouter.of(context).webGo("/demo01");
               },
             ),
           ),
@@ -100,7 +142,8 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ElevatedButton(
               child: const Text("Web WillPopScope Demo02"),
               onPressed: () {
-                GoRouter.of(context).push("/demo02");
+                SmartDialog.showToast("/demo02");
+                GoRouter.of(context).webGo("/demo02");
               },
             ),
           ),
@@ -108,7 +151,8 @@ class _MyHomePageState extends State<MyHomePage> {
             child: ElevatedButton(
               child: const Text("Auto Audio Demo03"),
               onPressed: () {
-                GoRouter.of(context).push("/demo03");
+                SmartDialog.showToast("/demo03");
+                GoRouter.of(context).webGo("/demo03");
               },
             ),
           ),
@@ -122,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  ConstrainedBox _addDemo(BuildContext context) {
+  ConstrainedBox _incrementDemo(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(minHeight: 200),
       child: Column(
